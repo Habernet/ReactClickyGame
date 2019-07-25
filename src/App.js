@@ -1,34 +1,83 @@
 import React, { Component } from "react";
 import "./App.css";
+// Import all of your components
 import Navbar from "./components/Navbar/navbar";
 import Wrapper from "./components/Wrapper/wrapper";
 import Container from "./components/Container/container";
 import Row from "./components/Row/row";
 import Column from "./components/Column/column";
-// Import all of your components
+// Import the JSON of your characters
 
 //Define a function that will shuffle the cards using random
+function shuffleCards(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
 
 class App extends Component {
   state = {
-    // friends,
+    characters: [],
     currentScore: 0,
     topScore: 0,
-    rightWrong: "",
-    clicked: []
+    rightOrWrong: "",
+    clicked: [] // This will store ID's of clicked elements
   };
 
-  // handle click function checks to see if this is clicked, if it is not, increments and sets state to clicked...else handle reset
+  handleClick = id => {
+    if (this.state.clicked.indexOf(id) === -1) {
+      //User clicked a previously unclicked card
+      this.handleIncrement();
+      this.setState({ clicked: this.state.clicked.concat(id) });
+    } else {
+      // User loses
+      this.handleReset();
+    }
+  };
 
-  //handle increment function gets the new score via the currentScore..sets state to new score
-  // Test to see if the new score actually was updated
-  // test to see if the max score was reached, set state rightWrong to you win yayy
+  handleIncrement = () => {
+    //Increment the current score and set it in the state
+    const newestScore = this.state.currentScore + 1;
+    this.setState({
+      currentScore: newestScore,
+      rightOrWrong: ""
+    });
+
+    // Test to see if the new score is higher than the state's top score, if it is, set the new top score
+    if (scoreToUpate => this.state.topScore) {
+      this.setState({
+        topScore: newestScore
+      });
+    }
+
+    // If the score is the max, set the rightOrWrong to "You win! Game over!"
+
+    this.handleShuffle();
+  };
 
   // Handle reset function
   // resets the whole state of the app and shuffles
+  handleReset = () => {
+    this.setState({
+      currentScore: 0,
+      topScore: this.state.topScore, // keep this the top score
+      rightOrWrong: "Wrong!", // If this is being called, its because the user guessed incorrectly
+      clicked: [] //Empty clicked array,
+    });
+    this.handleShuffle();
+  };
 
   //handleshuffle
   // shuffle the array of friends and then use that to set the new state
+  handleShuffle = () => {
+    //Get a shuffled version of the character cards
+    let newDeck = shuffleCards();
+    this.setState({
+      characters: newDeck
+    });
+  };
 
   render() {
     return (
@@ -36,8 +85,11 @@ class App extends Component {
         <Navbar
           score={this.state.currentScore}
           topScore={this.state.topScore}
-          rightWrong={this.state.rightWrong}
+          rightWrong={this.state.rightOrWrong}
         />
+        <Container>
+          <Row />
+        </Container>
       </Wrapper>
 
       // nav
