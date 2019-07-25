@@ -1,12 +1,17 @@
-import React from "react";
+import React, { Component } from "react";
 import "./App.css";
+import Navbar from "./components/Navbar/navbar";
+import Wrapper from "./components/Wrapper/wrapper";
+import Container from "./components/Container/container";
+import Row from "./components/Row/row";
+import Column from "./components/Column/column";
 // Import all of your components
 
 //Define a function that will shuffle the cards using random
 
 class App extends Component {
   state = {
-    friends,
+    // friends,
     currentScore: 0,
     topScore: 0,
     rightWrong: "",
@@ -27,12 +32,18 @@ class App extends Component {
 
   render() {
     return (
-      
-      // wrapper
+      <Wrapper>
+        <Navbar
+          score={this.state.currentScore}
+          topScore={this.state.topScore}
+          rightWrong={this.state.rightWrong}
+        />
+      </Wrapper>
+
       // nav
       // container
       // row
-      // map through friends => 
+      // map through friends =>
       //      col / friend card
     );
   }
