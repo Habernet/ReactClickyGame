@@ -6,7 +6,9 @@ import Wrapper from "./components/Wrapper/wrapper";
 import Container from "./components/Container/container";
 import Row from "./components/Row/row";
 import Column from "./components/Column/column";
-// Import the JSON of your characters
+import CharacterCard from "./components/CharacterCard/charactercard";
+// Import of your characters
+import characters from "./characters";
 
 //Define a function that will shuffle the cards using random
 function shuffleCards(array) {
@@ -19,7 +21,7 @@ function shuffleCards(array) {
 
 class App extends Component {
   state = {
-    characters: [],
+    characters: characters,
     currentScore: 0,
     topScore: 0,
     rightOrWrong: "",
@@ -80,6 +82,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state);
     return (
       <Wrapper>
         <Navbar
@@ -88,7 +91,23 @@ class App extends Component {
           rightWrong={this.state.rightOrWrong}
         />
         <Container>
-          <Row />
+          <Row>
+            {this.state.characters
+              ? this.state.characters.map((character, i) => (
+                  <Column key={i}>
+                    <CharacterCard>
+                      {character.name}
+                      name={character.name}
+                      image={character.image}
+                      value={character.id}
+                      handleClick={this.handleClick}
+                      handleIncrement={this.handleIncrement}
+                      image={character.image}
+                    </CharacterCard>
+                  </Column>
+                ))
+              : "No Pokemon!"}
+          </Row>
         </Container>
       </Wrapper>
 

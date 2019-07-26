@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-const FriendCard = props => {
+const CharacterCard = props => {
+  console.log(props);
   return (
     <div
       className="card"
@@ -14,4 +15,4 @@ const FriendCard = props => {
   );
 };
 
-export default FriendCard;
+export default CharacterCard;
