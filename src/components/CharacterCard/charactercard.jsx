@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
 const CharacterCard = props => {
-  console.log(props);
+  console.log("props: ", props);
   return (
     <div
       className="card"
-      value={props.id}
+      id={props.id}
       onClick={() => props.handleClick(props.id)}
     >
       <div className="card-body">

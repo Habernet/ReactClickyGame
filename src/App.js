@@ -75,14 +75,13 @@ class App extends Component {
   // shuffle the array of friends and then use that to set the new state
   handleShuffle = () => {
     //Get a shuffled version of the character cards
-    let newDeck = shuffleCards();
+    let newDeck = shuffleCards(this.state.characters);
     this.setState({
       characters: newDeck
     });
   };
 
   render() {
-    console.log(this.state);
     return (
       <Wrapper>
         <Navbar
@@ -93,19 +92,23 @@ class App extends Component {
         <Container>
           <Row>
             {this.state.characters
-              ? this.state.characters.map((character, i) => (
-                  <Column key={i}>
-                    <CharacterCard>
-                      {character.name}
-                      name={character.name}
-                      image={character.image}
-                      value={character.id}
-                      handleClick={this.handleClick}
-                      handleIncrement={this.handleIncrement}
-                      image={character.image}
-                    </CharacterCard>
-                  </Column>
-                ))
+              ? this.state.characters.map((character, i) => {
+                  i === 0 && console.log(character.image);
+                  return (
+                    <Column>
+                      <CharacterCard
+                        key={character.id}
+                        name={character.name}
+                        image={character.image}
+                        id={character.id}
+                        handleClick={this.handleClick}
+                        handleIncrement={this.handleIncrement}
+                        handleReset={this.handleReset}
+                        handleShuffle={this.handleShuffle}
+                      />
+                    </Column>
+                  );
+                })
               : "No Pokemon!"}
           </Row>
         </Container>
