@@ -48,7 +48,7 @@ class App extends Component {
     });
 
     // Test to see if the new score is higher than the state's top score, if it is, set the new top score
-    if (scoreToUpate => this.state.topScore) {
+    if (newestScore >= this.state.topScore) {
       this.setState({
         topScore: newestScore
       });
